@@ -1,0 +1,50 @@
+.contact-page-area .contact-informations h3 {
+    text-transform: uppercase;
+    font-size: 24px;
+    color: #161616;
+    margin-bottom: 30px;
+    position: relative;
+}
+.contact-page-area .contact-informations h3:after {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    background: #00c3ff;
+    height: 2px;
+    content: "";
+    width: 60px;
+}
+.contact-page-area .contact-informations ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.contact-page-area .contact-informations ul li i {
+    font-size: 16px;
+    margin-right: 10px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border: 1px solid #cccccc;
+}
+.contact-page-area .contact-informations ul li {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+input.form-control.contact {
+    width: 100%;
+    border: 1px solid #c5c3c3;
+}
+button.btn-send {
+    background: #1599db;
+    border: none;
+    padding: 10px 12px;
+    border-radius: 9px;
+    color: white;
+}
+.container.contactus {
+    margin-top: 70px;
+    margin-bottom: 55px;
+}

@@ -1,0 +1,148 @@
+#myCarousel{
+  width:100%;
+}
+.caption-animate .item.active .carousel-caption {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+.caption-animate  .item.active .carousel-caption.infinite {
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+}
+
+.caption-animate  .item.active .carousel-caption.hinge {
+  -webkit-animation-duration: 2s;
+  animation-duration: 2s;
+}
+
+.caption-animate .item.active .carousel-caption.flipOutX,
+.caption-animate .item.active .carousel-caption.flipOutY,
+.caption-animate .item.active .carousel-caption.bounceIn,
+.caption-animate .item.active .carousel-caption.bounceOut {
+  -webkit-animation-duration: .75s;
+  animation-duration: .75s;
+}
+.caption-animate .item .carousel-caption.fadeIn,
+.caption-animate .item .carousel-caption.fadeInDown,
+.caption-animate .item .carousel-caption.fadeInDownBig,
+.caption-animate .item .carousel-caption.fadeInLeft,
+.caption-animate .item .carousel-caption.fadeInLeftBig,
+.caption-animate .item .carousel-caption.fadeInRight,
+.caption-animate .item .carousel-caption.fadeInRightBig,
+.caption-animate .item .carousel-caption.fadeInUp,
+.caption-animate .item .carousel-caption.fadeInUpBig{
+  opacity:0;
+}
+.carousel-caption {
+    position: absolute;
+    right: 15%;
+    bottom: 189px;
+    left: 15%;
+    z-index: 10;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #6b0c0c;
+    text-align: center;
+    text-shadow: 0 1px 2px rgba(245, 243, 243, 0.6);
+}
+h3.text_name {
+    color: white;
+  font-family: 'Source Sans Pro', sans-serif;
+    margin: 0 0 15px;
+    font-weight: 600;
+    line-height: 1.55;
+    letter-spacing: 6px;
+    font-size: 64px;
+    
+}
+span.welcome_finext {
+    color: #1599db;
+}
+span.home_finext {
+    color: #ed0000;
+}
+.carousel-control.left {
+  background-color: none;
+  background-image: none;
+}
+.carousel-control.right {
+  background-color: none;
+  background-image: none;
+}
+/*slider*/
+.serviceBox{
+    font-family: 'Lato', sans-serif;
+    text-align: center;
+    padding: 0 10px;
+}
+.serviceBox .service-icon{
+    color: #1599db;
+    font-size: 45px;
+    text-shadow: 3px 3px 2px #fff,-3px 0 2px #fff,0 -3px 2px #fff;
+    margin: 0 0 100px;
+    position: relative;
+    z-index: 1;
+}
+.serviceBox .service-icon i{
+    transform: rotateY(0);
+    transition: all 0.3s ease;
+}
+.serviceBox:hover .service-icon i{ transform: rotateY(360deg); }
+.serviceBox .service-icon:before,
+.serviceBox .service-icon:after{
+    content: "";
+    background: linear-gradient(to right,#1599db 49%,#1599db 50%);
+    width: 153px;
+    height: 100px;
+    transform: translateX(-50%) translateY(50%);
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    -webkit-clip-path: polygon(50% 37%, 100% 0, 50% 100%, 50% 100%, 0 0);
+    clip-path: polygon(50% 37%, 100% 0, 50% 100%, 50% 100%, 0 0);
+}
+.serviceBox .service-icon:after{
+    background: #1599db;
+    width: 150px;
+    height: 150px;
+    transform-origin: center center;
+    transform: translateX(-50%) translateY(-50%) rotateX(63deg);
+    top: 53px;
+    left: 50%;
+    z-index: -1;
+    -webkit-clip-path: polygon(50% 0, 0 50%, 50% 100%, 50% 10%, 90% 50%, 50% 90%, 10% 50%, 50% 10%, 50% 100%, 100% 50%);
+    clip-path: polygon(50% 0, 0 50%, 50% 100%, 50% 10%, 90% 50%, 50% 90%, 10% 50%, 50% 10%, 50% 100%, 100% 50%);
+}
+.serviceBox .title{
+    color: #1599db;
+    font-size: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin: 0 0 10px;
+}
+.serviceBox .description{
+    color: #666;
+    font-size: 15px;
+    text-align: center;
+    line-height: 25px;
+}
+.serviceBox.orange .service-icon{ color: #ed0000; }
+.serviceBox.orange .service-icon:before{ background: linear-gradient(to right,#ed0000 49%,#ed0000 50%); }
+.serviceBox.orange .service-icon:after{ background:#ed0000; }
+.serviceBox.orange .title{ color: #ed0000; }
+.serviceBox.purple .service-icon{ color: #8907DC; }
+.serviceBox.purple .service-icon:before{ background: linear-gradient(to right,#8907DC 49%,#5000AD 50%); }
+.serviceBox.purple .service-icon:after{ background:#8907DC; }
+.serviceBox.purple .title{ color: #8907DC; }
+.serviceBox.blue .service-icon{ color: #00CFD5; }
+.serviceBox.blue .service-icon:before{ background: linear-gradient(to right,#00CFD5 49%,#22a6b3 50%); }
+.serviceBox.blue .service-icon:after{ background:#00CFD5; }
+.serviceBox.blue .title{ color: #00CFD5; }
+@media only screen and (max-width:990px){
+    .serviceBox{ margin: 0 0 30px; }
+}
+section.content {
+    margin-bottom: 18px;
+}
