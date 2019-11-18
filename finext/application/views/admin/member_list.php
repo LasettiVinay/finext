@@ -22,6 +22,7 @@ select.custom-select.custom-select-sm.form-control.form-control-sm {
                 <th>S.No</th>
                 <th>User Id</th>
                 <th>Name</th>
+                <th>City</th>
                 <th>Date of Join</th>
                 <th>Activaet Date</th>
                 <th>User Status</th>
@@ -43,6 +44,7 @@ select.custom-select.custom-select-sm.form-control.form-control-sm {
                                     <td scope="row"><?php echo $count++ ?></td>
                                     <td><?php echo $members['refer_id']; ?></td>
                                     <td><?php echo $members['name']; ?></td>
+                                    <td><?php echo $members['city']; ?></td>
                                     <!-- <td><?php //echo $members['email']; ?></td> -->
                                     
                                     <td><?php echo $members['created_at'];?></td>

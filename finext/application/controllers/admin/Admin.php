@@ -599,11 +599,9 @@ $user_id=$benifit['introducer_id'];
     $user_id=$this->session->userdata('login_user_id');
     $benifit=$this->db->get_where('refer_benifit', array('id'=>$_GET['id']))->row_array();
    // $benifit=$this->db->query("select * from refer_benifit where introducer_id='".$user_id."'");
-}
+  }
 
-   
    // $result=$benifit->row();
-
 
       $data=array(
     "row_status"=>1,
@@ -625,7 +623,11 @@ $update=$this->User_details_model->update_conferPayment($id, $data);
     $this->db->where('id',$benifit['refer_id'])->update('users',$pos);
     $user_rec=$this->db->get_where('users',array('id'=>$benifit['refer_id']))->row_array();
 //print($user_rec);exit;
-    if($user_rec['payment_conferm']==4){
+    $num_of_users_confirmed=$this->db
+        ->get_where('refer_benifit', array('refer_id'=>$benifit['refer_id'], 'row_status'=>1))
+        ->num_rows();
+    log_message('debug', 'Number of users confirmed: '.$num_of_users_confirmed);
+    if($user_rec['payment_conferm']==4 && $num_of_users_confirmed==4){
 
         $status=array('row_status'=>1,
             'activedate'=>date('Y-m-d H:i:s')
@@ -717,8 +719,14 @@ $walet_amout['walet']=$user_rec['walet']+$result->amount;
     $pos['payment_conferm']=$user_rec_auto['payment_conferm']+1;
   $this->db->where('user_id',$benifit['child_id'])->update('autopool_details',$pos);
      $user_rec_auto=$this->db->get_where('autopool_details',array('user_id'=>$benifit['child_id']))->row_array();
+    
+    $num_of_users_confirmed=$this->db
+        ->get_where('autopull_benifit_user', array('child_id'=>$benifit['child_id'], 'row_status'=>1))
+        ->num_rows();
 
-    if($user_rec_auto['payment_conferm']==3){
+    log_message('debug', 'Number of autopool users confirmed: '.$num_of_users_confirmed);
+
+    if($user_rec_auto['payment_conferm']==3 && $num_of_users_confirmed==3){
         $status=array('row_status'=>1,'activedate'=>date('Y-m-d H:i:s'));
          $this->db->where('user_id',$benifit['child_id'])->update('autopool_details',$status);
          

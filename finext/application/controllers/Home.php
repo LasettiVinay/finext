@@ -175,8 +175,10 @@ public function registration(){
     $this->form_validation->set_rules('phone', 'Mobile Number', 'trim|required|min_length[10]|max_length[10]');  
     $this->form_validation->set_rules('username', 'User Name', 'trim|required|is_unique[users.refer_id]', array(
           'is_unique' => 'This %s already exists.'));
+    $this->form_validation->set_rules('city', 'City',  'trim|required');
     $this->form_validation->set_rules('password', 'Password', 'trim|required|matches[confirm]');
     $this->form_validation->set_rules('confirm', 'Password Confirmation', 'trim|required');
+
     if ($this->form_validation->run() == TRUE) {
           $input = $this->input->post();
        $password=hash ( "sha256",$input['password']);
@@ -187,6 +189,7 @@ public function registration(){
             "position" => $input['position'],
             "mobile" => $input['phone'],
             "email" => $input['email'],
+            "city" => $input['city'],
             "password" => $password,
             "refer_id"=>$refer_id,
             "place_id"=>$this->db->get_where('users',array('refer_id'=>$input['place_id']))->row()->id,

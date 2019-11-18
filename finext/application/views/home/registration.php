@@ -111,7 +111,6 @@ $introducer_id=$this->crud_model->generate_decryption_key($this->uri->segment(3)
                 <label class="error danger"> <?php echo form_error('pan_no'); ?></label>
             </div>
 
-
             <div class="form-group reg_forms">
                 <label for="name" class="cols-sm-2 control-label reg_fields">Your Phone</label>
                     <div class="cols-sm-10">
@@ -132,6 +131,17 @@ $introducer_id=$this->crud_model->generate_decryption_key($this->uri->segment(3)
                     </div>
                   </div>
               <label class="error danger"> <?php echo form_error('email'); ?></label>
+            </div>
+
+            <div class="form-group reg_forms">
+              <label for="city" class="cols-sm-2 control-label reg_fields">City</label>
+              <div class="cols-sm-10">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-building fa" aria-hidden="true"></i></span>
+                  <input type="text" class="form-control" name="city" id="city"  placeholder="Enter your city name"/>
+                </div>
+              </div>
+              <label class="error danger"> <?php echo form_error('city'); ?></label>
             </div>
 
             <div class="form-group reg_forms">

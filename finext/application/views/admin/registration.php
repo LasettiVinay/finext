@@ -70,7 +70,17 @@
                 </div>
               </div>
             </div>
-<div class="form-group">
+            <div class="form-group">
+              <label for="city" class="cols-sm-2 control-label">City</label>
+              <div class="cols-sm-10">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-building fa" aria-hidden="true"></i></span>
+                  <input type="text" class="form-control" name="city" id="city"  placeholder="Enter your city name"/>
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-group">
               <label for="email" class="cols-sm-2 control-label">Gender</label>
               <div class="cols-sm-10">
                 <div class="input-group">

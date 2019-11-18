@@ -24,6 +24,8 @@ select.custom-select.custom-select-sm.form-control.form-control-sm {
                 <th>S.No</th>
                 <?php if($this->session->userdata('login_type')=='admin'){?>
                 <th>Benificial ID</th>
+                <th>Benificial Name</th>
+                <th>Benificial Phn</th>
                  <?php }?>
                 <th>User ID</th>
                 <th>Name</th>
@@ -48,10 +50,11 @@ select.custom-select.custom-select-sm.form-control.form-control-sm {
                                    <th scope="row"><?php echo $count++;?></th>
                                    <?php if($this->session->userdata('login_type')=='admin'){
                                        $introducer_user=$this->db->get_where('users', array('id'=>$user_deatil->a_introducer_id))->row();
-
                                        ?>
 
                                <td><?php echo $introducer_user->refer_id;?></td>
+                               <td><?php echo $introducer_user->name;?></td>
+                               <td><?php echo $introducer_user->mobile;?></td>
                                <?php }?>
                                    <td><?php echo $user_deatil->refer_id;?></td>
                                    <td><?php echo $user_deatil->name;?></td>

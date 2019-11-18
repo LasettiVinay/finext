@@ -33,13 +33,15 @@ select.custom-select.custom-select-sm.form-control.form-control-sm {
     width: 54px;
 }
       </style>
-      <h4 class="tittle-w3-agileits mb-4">Autopull Get Help </h4>
+      <h4 class="tittle-w3-agileits mb-4">Autopool Get Help </h4>
             <table id="example1" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
                 <th>S.No</th>
                  <?php if($this->session->userdata('login_type')=='admin'){?>
                 <th>Benificial ID</th>
+                <th>Benificial Name</th>
+                <th>Benificial Phn</th>
                  <?php }?>
                 <th>User ID</th>
                 <th>Name</th>
@@ -59,13 +61,17 @@ select.custom-select.custom-select-sm.form-control.form-control-sm {
                          $count=1;
                      /*    print_r($get_autopull_benificial);die;*/
                          foreach($get_autopull_benificial as $user_deatil){?>
-                           <?php $introducer_user=$this->db->get_where('users', array('refer_id'=>$user_deatil['child_id']))->row();
+                           <?php 
+                           $introducer_user=$this->db->get_where('users', array('refer_id'=>$user_deatil['child_id']))->row();
+                           $benificial_user=$this->db->get_where('users', array('refer_id'=>$user_deatil['parent_id']))->row();
                             ?>
                                <tr>
                                    <th scope="row"><?php echo $count++;?></th>
                                    <?php if($this->session->userdata('login_type')=='admin'){?>
 
                                <td><?php echo  str_replace("FX18","FX19",$user_deatil['parent_id']);;?></td>
+                               <td><?php echo $benificial_user->name;?></td>
+                               <td><?php echo $benificial_user->mobile;?></td>
                                <?php }?>
                                    <td><?php echo str_replace("FX18","FX19",$user_deatil['child_id']);?></td>
                                    <td><?php echo $introducer_user->name;?></td>
