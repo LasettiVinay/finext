@@ -1009,7 +1009,7 @@ $page_data['page_title'] = 'block_user';
 $page_data['page_name'] = 'block_user';
 $id=$_GET['id'];
 $block_user=$this->db->get_where('users', array('row_status'=>0,'id'=>$_GET['id']))->row_array();
-if($block_user['payment_conferm']==4){
+if($block_user['payment_conferm']>=4){
    $data=array(
     'row_status'=>1,
 );
