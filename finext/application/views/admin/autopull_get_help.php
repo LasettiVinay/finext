@@ -64,6 +64,11 @@ select.custom-select.custom-select-sm.form-control.form-control-sm {
                            <?php 
                            $introducer_user=$this->db->get_where('users', array('refer_id'=>$user_deatil['child_id']))->row();
                            $benificial_user=$this->db->get_where('users', array('refer_id'=>$user_deatil['parent_id']))->row();
+                           if(substr($user_deatil['parent_id'], 0,4) == "FX18"){
+                                $benificial_user=$this->db
+                                    ->get_where('official_users', array('refer_id'=>$user_deatil['parent_id']))
+                                    ->row();
+                           }
                             ?>
                                <tr>
                                    <th scope="row"><?php echo $count++;?></th>
