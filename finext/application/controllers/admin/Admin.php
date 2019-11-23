@@ -627,7 +627,8 @@ $update=$this->User_details_model->update_conferPayment($id, $data);
         ->get_where('refer_benifit', array('refer_id'=>$benifit['refer_id'], 'row_status'=>1))
         ->num_rows();
     log_message('debug', 'Number of users confirmed: '.$num_of_users_confirmed);
-    if($user_rec['payment_conferm']==4 && $num_of_users_confirmed==4){
+
+    if($user_rec['payment_conferm']>=4 && $num_of_users_confirmed==4){
 
         $status=array('row_status'=>1,
             'activedate'=>date('Y-m-d H:i:s')
@@ -726,7 +727,7 @@ $walet_amout['walet']=$user_rec['walet']+$result->amount;
 
     log_message('debug', 'Number of autopool users confirmed: '.$num_of_users_confirmed);
 
-    if($user_rec_auto['payment_conferm']==3 && $num_of_users_confirmed==3){
+    if($user_rec_auto['payment_conferm']>=3 && $num_of_users_confirmed==3){
         $status=array('row_status'=>1,'activedate'=>date('Y-m-d H:i:s'));
          $this->db->where('user_id',$benifit['child_id'])->update('autopool_details',$status);
          
