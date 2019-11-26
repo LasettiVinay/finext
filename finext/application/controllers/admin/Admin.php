@@ -1197,7 +1197,7 @@ $autopool_users=$this->db->get_where('autopool_details', array('user_id'=>$this-
 
 if ($autopool_users!='')
 {
-    $this->db->where('id',$this->session->userdata('login_user_id'))->update('autopool_details',$status);
+    $this->db->where('user_id',$this->session->userdata('refer_id'))->update('autopool_details',$status);
 }
 
 }

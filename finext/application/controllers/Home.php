@@ -48,7 +48,7 @@ public function login_action() {
             $this->session->set_userdata('login_type', $role['role']);
             redirect(base_url().'dashboard');
           }else{
-            $this->session->set_flashdata('error_msg', 'You are a Blocked User Please Contact to Admin');
+            $this->session->set_flashdata('error_msg', 'You are a Blocked User Please Contact Admin');
             redirect(base_url().'home/login_page');
           }
         }else{
@@ -64,7 +64,7 @@ function get_username_availability() {
        $user=$this->User_details_model->get_username_availability($refer_id);
    
       if ($user['refer_id'] !=$_POST['refer_id'] || $user['row_status']==2) {
-        echo '<span style="color:red;">Introducer Id unavailable</span>';
+        echo '<span style="color:red;">Introducer Id unavailable or Inactive</span>';
       } else {
         echo '<span style="color:green;">'.$user['name'].'</span>';
       }
@@ -200,8 +200,13 @@ $select_user=$this->db->get_where('users', array('refer_id'=>$input['introducer_
 
 $position_availablity = $this->db->get_where('users', array('place_id'=>$inputData['place_id'], 'position'=> $input['position']))->num_rows();
 
-if($select_user->row_status==0 || $select_user->row_status==2){
-  $this->session->set_flashdata('error_message','U Can not refer any one');
+$user_status = $select_user->row_status;
+if($user_status==0){
+  $this->session->set_flashdata('error_message','You are Blocked. You Can not refer any one');
+}
+else if ($user_status==2)
+{
+  $this->session->set_flashdata('error_message','You are Inactive. You Can not refer any one');
 }
 else if($position_availablity != 0){
   $this->session->set_flashdata('error_message',"User already exist on selected position");
