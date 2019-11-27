@@ -421,7 +421,7 @@ var x2 = setInterval(function() {
   $('#seconds').html(seconds2);
 
   // If the count down is finished, write some text 
-   if (distance < 0) {
+   if (distance2 < 0) {
      clearInterval(x2);
      update_user_status('You have not referred 3 Members on time so we are deactivating your account.');
   //   //document.getElementById("demo").innerHTML = "EXPIRED";
