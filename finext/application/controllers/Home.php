@@ -48,11 +48,11 @@ public function login_action() {
             $this->session->set_userdata('login_type', $role['role']);
             redirect(base_url().'dashboard');
           }else{
-            $this->session->set_flashdata('error_msg', 'You are a Blocked User Please Contact Admin');
+            $this->session->set_flashdata('error_msg', 'You are a Blocked User, Please Contact Admin');
             redirect(base_url().'home/login_page');
           }
         }else{
-            $this->session->set_flashdata('error_msg', 'Your Enter Invalid User Id/Password');
+            $this->session->set_flashdata('error_msg', 'You have Entered Invalid User Id/Password');
             redirect(base_url().'home/login_page');
         }
 }
