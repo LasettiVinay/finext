@@ -626,7 +626,9 @@ $update=$this->User_details_model->update_conferPayment($id, $data);
     $num_of_users_confirmed=$this->db
         ->get_where('refer_benifit', array('refer_id'=>$benifit['refer_id'], 'row_status'=>1))
         ->num_rows();
-    log_message('debug', 'Number of users confirmed: '.$num_of_users_confirmed);
+    log_message('debug', '---- Number of users confirmed: '.$num_of_users_confirmed);
+    log_message('debug', '---- Count of payment_conferm in users: '.$user_rec['payment_conferm']);
+    log_message('debug', '---- User Current status: '.$user_rec['row_status']);
 
     if($user_rec['payment_conferm']>=4 && $num_of_users_confirmed==4){
 
@@ -635,8 +637,10 @@ $update=$this->User_details_model->update_conferPayment($id, $data);
     );
         print_r($status);
          $this->db->where('id',$benifit['refer_id'])->update('users',$status);
-        redirect(base_url().'admin_get_helps');
-    }
+    $user_rec=$this->db->get_where('users',array('id'=>$benifit['refer_id']))->row_array();
+    log_message('debug', '---- User Updated/Current status: '.$user_rec['row_status']);
+    redirect(base_url().'admin_get_helps');
+}
     
   /* $c_status=1
     $payment_data=array(
@@ -718,23 +722,25 @@ $walet_amout['walet']=$user_rec['walet']+$result->amount;
     // $this->db->where('refer_id',$user_id)->update('users',$walet_amout);
     
     $pos['payment_conferm']=$user_rec_auto['payment_conferm']+1;
-  $this->db->where('user_id',$benifit['child_id'])->update('autopool_details',$pos);
-     $user_rec_auto=$this->db->get_where('autopool_details',array('user_id'=>$benifit['child_id']))->row_array();
+    $this->db->where('user_id',$benifit['child_id'])->update('autopool_details',$pos);
+    $user_rec_auto=$this->db->get_where('autopool_details',array('user_id'=>$benifit['child_id']))->row_array();
     
     $num_of_users_confirmed=$this->db
         ->get_where('autopull_benifit_user', array('child_id'=>$benifit['child_id'], 'row_status'=>1))
         ->num_rows();
-
-    log_message('debug', 'Number of autopool users confirmed: '.$num_of_users_confirmed);
+    log_message('debug', '---- Number of users confirmed: '.$num_of_users_confirmed);
+    log_message('debug', '---- Count of payment_conferm in users: '.$user_rec_auto['payment_conferm']);
+    log_message('debug', '---- User Current status: '.$user_rec_auto['row_status']);
 
     if($user_rec_auto['payment_conferm']>=3 && $num_of_users_confirmed==3){
         $status=array('row_status'=>1,'activedate'=>date('Y-m-d H:i:s'));
          $this->db->where('user_id',$benifit['child_id'])->update('autopool_details',$status);
          
          
-        redirect(base_url().'autopull_get_help');
+        #redirect(base_url().'autopull_get_help');
     }
-    
+    $user_rec_auto=$this->db->get_where('autopool_details',array('user_id'=>$benifit['child_id']))->row_array();
+    log_message('debug', '---- User Current/Updated status: '.$user_rec_auto['row_status']);
   /* $c_status=1
     $payment_data=array(
         'payment_conferm'=>$c_status,
