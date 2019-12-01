@@ -622,25 +622,27 @@ $update=$this->User_details_model->update_conferPayment($id, $data);
     $this->db->where('id',$user_id)->update('users',$walet_amout);
     $this->db->where('id',$benifit['refer_id'])->update('users',$pos);
     $user_rec=$this->db->get_where('users',array('id'=>$benifit['refer_id']))->row_array();
-//print($user_rec);exit;
+    //print($user_rec);exit;
     $num_of_users_confirmed=$this->db
         ->get_where('refer_benifit', array('refer_id'=>$benifit['refer_id'], 'row_status'=>1))
         ->num_rows();
-    log_message('debug', '---- Number of users confirmed: '.$num_of_users_confirmed);
-    log_message('debug', '---- Count of payment_conferm in users: '.$user_rec['payment_conferm']);
-    log_message('debug', '---- User Current status: '.$user_rec['row_status']);
 
-    if($user_rec['payment_conferm']>=4 && $num_of_users_confirmed==4){
+    log_message('debug', '---- Logged in User Finext ID           : '.$benifit['introducer_id']);
+    log_message('debug', '---- Child User Finext ID               : '.$user_rec['refer_id']);
+    log_message('debug', '---- Number of users confirmed          : '.$num_of_users_confirmed);
+    log_message('debug', '---- Count of payment_conferm in users  : '.$user_rec['payment_conferm']);
+    log_message('debug', '---- User Current status                : '.$user_rec['row_status']);
 
-        $status=array('row_status'=>1,
-            'activedate'=>date('Y-m-d H:i:s')
-    );
+    if($user_rec['payment_conferm']>=4 && $num_of_users_confirmed==4)
+    {
+        $status=array('row_status'=>1,'activedate'=>date('Y-m-d H:i:s'));
         print_r($status);
-         $this->db->where('id',$benifit['refer_id'])->update('users',$status);
-    $user_rec=$this->db->get_where('users',array('id'=>$benifit['refer_id']))->row_array();
-    log_message('debug', '---- User Updated/Current status: '.$user_rec['row_status']);
-    redirect(base_url().'admin_get_helps');
-}
+
+        $this->db->where('id',$benifit['refer_id'])->update('users',$status);
+        $user_rec=$this->db->get_where('users',array('id'=>$benifit['refer_id']))->row_array();
+        log_message('debug', '---- User Updated status: '.$user_rec['row_status']);
+        redirect(base_url().'admin_get_helps');
+    }
     
   /* $c_status=1
     $payment_data=array(
@@ -653,10 +655,10 @@ $update=$this->User_details_model->update_conferPayment($id, $data);
         redirect(base_url().'admin_get_helps');
     }
     else{echo "dsfdsf";}*/
-  redirect(base_url().'admin_get_helps');
+    redirect(base_url().'admin_get_helps');
     
- }
- $this->load->view('layout/adminlayout/index', $page_data);
+    }
+   $this->load->view('layout/adminlayout/index', $page_data);
  }
 
 public function autopull_confirm_payment(){
@@ -686,35 +688,26 @@ $user_id=$benifit['introducer_id'];
  if($update){
      $benifit=$this->db->get_where('autopull_benifit_user', array('id'=>$id))->row_array();
 
-
-
      $user_id=$benifit['parent_id'];
-     
-         
- $parent=substr($user_rec_auto['parent_id'], 0,4);
-if($parent=='FX18'){
-    $result=$this->db->get_where('official_users', array('refer_id'=>$benifit['parent_id']))->row();
-
-    $email=$this->db->get_where('official_users',array('refer_id'=>$benifit['child_id']))->row()->email;
-
-$walet_amout['walet']=$user_rec['walet']+$result->amount;
-    $this->db->where('refer_id',$user_id)->update('official_users',$walet_amout);
-}else{
-        $result=$this->db->get_where('users', array('refer_id'=>$benifit['parent_id']))->row();
-
-        $email=$this->db->get_where('users',array('refer_id'=>$benifit['child_id']))->row()->email;
-
+     $parent=substr($user_rec_auto['parent_id'], 0,4);
+    if($parent=='FX18')
+    {
+        $result=$this->db->get_where('official_users', array('refer_id'=>$benifit['parent_id']))->row();
+        $email=$this->db->get_where('official_users',array('refer_id'=>$benifit['child_id']))->row()->email;
         $walet_amout['walet']=$user_rec['walet']+$result->amount;
-    $this->db->where('refer_id',$user_id)->update('users',$walet_amout);
+        $this->db->where('refer_id',$user_id)->update('official_users',$walet_amout);
     }
-
-
-
+    else
+    {
+        $result=$this->db->get_where('users', array('refer_id'=>$benifit['parent_id']))->row();
+        $email=$this->db->get_where('users',array('refer_id'=>$benifit['child_id']))->row()->email;
+        $walet_amout['walet']=$user_rec['walet']+$result->amount;
+        $this->db->where('refer_id',$user_id)->update('users',$walet_amout);
+    }
     
     $c_name=$result->name.' ('.$result->refer_id.')';
     $message='Hi, Your payment is confirmed by '.$c_name;
     $this->mail_model->pay_confirm_mail($email,'Payment Confirmed',$message);
-
 
     $user_rec_auto=$this->db->get_where('autopool_details',array('user_id'=>$benifit['child_id']))->row_array();
     $user_rec=$this->db->get_where('users',array('id'=>$result->refer_id))->row_array();
@@ -728,20 +721,27 @@ $walet_amout['walet']=$user_rec['walet']+$result->amount;
     $num_of_users_confirmed=$this->db
         ->get_where('autopull_benifit_user', array('child_id'=>$benifit['child_id'], 'row_status'=>1))
         ->num_rows();
-    log_message('debug', '---- Number of users confirmed: '.$num_of_users_confirmed);
-    log_message('debug', '---- Count of payment_conferm in users: '.$user_rec_auto['payment_conferm']);
-    log_message('debug', '---- User Current status: '.$user_rec_auto['row_status']);
 
-    if($user_rec_auto['payment_conferm']>=3 && $num_of_users_confirmed==3){
+    log_message('debug', '---- Logged in User Finext ID           : '.$benifit['parent_id']);
+    log_message('debug', '---- Child User Finext ID               : '.$benifit['child_id']);
+    log_message('debug', '---- Number of users confirmed          : '.$num_of_users_confirmed);
+    log_message('debug', '---- Count of payment_conferm in users  : '.$user_rec_auto['payment_conferm']);
+    log_message('debug', '---- User Current status                : '.$user_rec_auto['row_status']);
+
+    if($user_rec_auto['payment_conferm']>=3 && $num_of_users_confirmed==3)
+    {
         $status=array('row_status'=>1,'activedate'=>date('Y-m-d H:i:s'));
-         $this->db->where('user_id',$benifit['child_id'])->update('autopool_details',$status);
-         
-         
+        $this->db->where('user_id',$benifit['child_id'])->update('autopool_details',$status); 
+
+        $this->db->where('refer_id',$benifit['child_id'])->update('users',$status);
+        $user_rec_auto=$this->db->get_where('autopool_details',array('user_id'=>$benifit['child_id']))->row_array();
+        $user_rec_mem=$this->db->get_where('users',array('refer_id'=>$benifit['child_id']))->row_array();
+        log_message('debug', '---- Child User Updated autopool status : '.$user_rec_auto['row_status']);
+        log_message('debug', '---- Child User Updated member status   : '.$user_rec_mem['row_status']);
         #redirect(base_url().'autopull_get_help');
     }
-    $user_rec_auto=$this->db->get_where('autopool_details',array('user_id'=>$benifit['child_id']))->row_array();
-    log_message('debug', '---- User Current/Updated status: '.$user_rec_auto['row_status']);
-  /* $c_status=1
+
+    /* $c_status=1
     $payment_data=array(
         'payment_conferm'=>$c_status,
 
@@ -752,12 +752,12 @@ $walet_amout['walet']=$user_rec['walet']+$result->amount;
         redirect(base_url().'admin_get_helps');
     }
     else{echo "dsfdsf";}*/
-  redirect(base_url().'autopull_get_help');
-    
+    redirect(base_url().'autopull_get_help'); 
+  }
+  $this->load->view('layout/adminlayout/index', $page_data);
  }
- $this->load->view('layout/adminlayout/index', $page_data);
- }
-  public function compose(){
+
+public function compose(){
          $page_data['page_title'] = 'Compose';
          $page_data['page_name'] = 'compose';
 

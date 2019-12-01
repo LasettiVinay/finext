@@ -22,7 +22,9 @@ select.custom-select.custom-select-sm.form-control.form-control-sm {
                 <th>S.No</th>
                 <th>User Id</th>
                 <th>Name</th>
-                <th>Phone</th>
+                <?php if($this->session->userdata('login_type')=='admin'){?>
+                    <th>Phone</th>
+                <?php }?>
                 <th>City</th>
                 <th>Date of Join</th>
                 <th>Activaet Date</th>
@@ -45,7 +47,9 @@ select.custom-select.custom-select-sm.form-control.form-control-sm {
                                     <td scope="row"><?php echo $count++ ?></td>
                                     <td><?php echo $members['refer_id']; ?></td>
                                     <td><?php echo $members['name']; ?></td>
-                                    <td><?php echo $members['mobile']; ?></td>
+                                    <?php if($this->session->userdata('login_type')=='admin'){?>
+                                        <td><?php echo $members['mobile']; ?></td>
+                                    <?php }?>
                                     <td><?php echo $members['city']; ?></td>
                                     <!-- <td><?php //echo $members['email']; ?></td> -->
                                     
