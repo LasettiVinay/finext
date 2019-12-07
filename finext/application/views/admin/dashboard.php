@@ -538,7 +538,7 @@ else{
                 $('#seconds').html(seconds1);
 
           }, 1000);
-          alert('You are Blocked because you are not done your payment!\nBecome active to start earnings!');
+          alert('You are Blocked because you have not done your payment!\nBecome active to start earnings!');
         <?php
         }
         else if($user->payment_conferm==4)
@@ -602,7 +602,7 @@ else{
               $('#minutes').html(minutes3);
               $('#seconds').html(seconds3);
             }, 1000);
-            alert("You are Blocked because you not done autopool payment on time!\nBecome active to start earnings!");
+            alert("You are Blocked because you have not done autopool payment on time!\nBecome active to start earnings!");
         <?php
         }
       }?>

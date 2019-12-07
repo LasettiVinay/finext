@@ -56,5 +56,8 @@ class Benifit_Model extends CI_Model
     public function bdetail($id){
         return $this->db->get_where('account_detail', array('user_id'=>$id))->row_array();
     }
+    public function mem_bankdetail($id){
+        return $this->db->get_where('account_detail', array('id'=>$id))->result_array();
+    }
 }
 ?>

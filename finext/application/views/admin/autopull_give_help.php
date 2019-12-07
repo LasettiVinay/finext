@@ -65,16 +65,16 @@ select.custom-select.custom-select-sm.form-control.form-control-sm {
                             $user_name=$user->name;
                             $user_email=$user->email;
                              $user_mobile=$user->mobile;
-                             $bankdeatil= $this->Benifit_Model->bankdetail($giveDonamtion['parent_id']);
+                             $bankdeatil= $this->Benifit_Model->mem_bankdetail($user->id);
                               foreach($bankdeatil as $bdeatil){
-                              $bank_name=$bdeatil->bank_name;
-                              $account_holder_name=$bdeatil->account_holder;
-                              $account_no=$bdeatil->account_no;
-                              $ifsc=$bdeatil->ifsc;
-                              $tez=$bdeatil->tez;
-                              $paytm=$bdeatil->paytm;
-                              $pay_phone_no=$bdeatil->pay_phone_no;
-                              $amount=$giveDonamtion['amount'];
+                                $bank_name=$bdeatil['bank_name'];
+                                $account_holder_name=$bdeatil['account_holder'];
+                                $account_no=$bdeatil['account_no'];
+                                $ifsc=$bdeatil['ifsc'];
+                                $tez=$bdeatil['tez'];
+                                $paytm=$bdeatil['paytm'];
+                                $pay_phone_no=$bdeatil['pay_phone_no'];
+                                $amount=$giveDonamtion['amount'];
                             } 
                           }
 
