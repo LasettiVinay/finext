@@ -39,7 +39,7 @@ public function login_action() {
         
         if (!empty($res)) {
           
-          if($res['row_status']!=0){
+          if($res['row_status']!=-1){
             $role=$this->User_details_model->get_role($res['role_id']);
             $this->session->set_userdata('login_user_id', $res['id']);
             $this->session->set_userdata('refer_id', $res['refer_id']);

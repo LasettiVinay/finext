@@ -117,6 +117,9 @@ $user=$this->db->get_where('users', array('id'=>$this->session->userdata('login_
 <?php if($user->row_status==2){ ?>
   <div class="info"> <h6 class="adref"><span class="note">Note : </span> Kindly Upgrade to Start Earnings!</h6>
 </div>
+<?php }else if ($user->row_status==0){?>
+  <div class="info"> <h6 class="adref"><span class="note">Note : </span> You are Blocked!!!, Become Active and Start Earnings!</h6>
+</div>
 <?php }else{ ?>
 <div class="info"> <h6 class="adref"><span class="note">Note : </span> Refere 3 Direct Members within 45Days other wise The user get Blocked.</h6>
 
@@ -485,9 +488,125 @@ function update_user_status(val){
 
 </script>
 <?php }
+/*
 else{
   $this->session->set_flashdata('error_msg', 'Sorry U can not do login');
   redirect(base_url('logout'));
 }
+*/
+  else
+  {
+      log_message('debug', '--- Blocked user entered here!!');$date=strtotime($user->created_at);
 
+      $enddate3=strtotime("+3 day", $date);
+      $days3_date= date("M d, Y h:i:s", $enddate3);
+      $enddate45=strtotime("+45 day", $date);
+      $days45_date= date("M d, Y h:i:s", $enddate45);
+
+      $autopull_date=strtotime($autopull_users['created_at']);
+      $autopull_enddate3=strtotime("+3 day", $autopull_date);
+      $autopull_days3_date= date("M d, Y h:i:s", $autopull_enddate3);
+      ?>
+      <script>
+        <?php
+        if($user->payment_conferm<4){
+        ?>
+          // Set the date we're counting down to
+          var countDownDate1 = new Date("<?=$days3_date?>").getTime();
+
+          // Update the count down every 1 second
+          var x1 = setInterval(function() {
+              // Get today's date and time
+              var now1 = new Date().getTime();
+              var id='<?php $this->session->userdata('login_user_id'); ?>';
+
+                // Find the distance between now and the count down date
+                var distance1 = countDownDate1 - now1;
+
+                // Time calculations for days, hours, minutes and seconds
+                var days1 = Math.floor(distance1 / (1000 * 60 * 60 * 24));
+                var hours1 = Math.floor((distance1 % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes1 = Math.floor((distance1 % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds1 = Math.floor((distance1 % (1000 * 60)) / 1000);
+
+                // Display the result in the element with id="demo"
+                /*document.getElementById("demo").innerHTML =days + "d " + hours + "h "
+                + minutes + "m " + seconds + "s ";*/
+                $('#days').html(days1);
+                $('#hours').html(hours1);
+                $('#minutes').html(minutes1);
+                $('#seconds').html(seconds1);
+
+          }, 1000);
+          alert('You are Blocked because you are not done your payment!\nBecome active to start earnings!');
+        <?php
+        }
+        else if($user->payment_conferm==4)
+        {
+          if($user->autpull_status==0){
+          ?>
+          // Set the date we're counting down to
+          var countDownDate2 = new Date("<?=$days45_date?>").getTime();
+
+          // Update the count down every 1 second
+          var x2 = setInterval(function() {
+            // Get today's date and time
+            var now2 = new Date().getTime();
+            // Find the distance between now and the count down date
+            var distance2 = countDownDate2 - now2;
+
+            // Time calculations for days, hours, minutes and seconds
+            var days2 = Math.floor(distance2 / (1000 * 60 * 60 * 24));
+            var hours2 = Math.floor((distance2 % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes2 = Math.floor((distance2 % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds2 = Math.floor((distance2 % (1000 * 60)) / 1000);
+
+            // Display the result in the element with id="demo"
+            /*document.getElementById("demo").innerHTML = days + "<span>d </span>" + hours + "h "
+            + minutes + "m " + seconds + "s ";*/
+            $('#days').html(days2);
+            $('#hours').html(hours2);
+            $('#minutes').html(minutes2);
+            $('#seconds').html(seconds2);
+          }, 1000);
+          alert('You are blocked because you have not refferred 3 members on time!\nBecome active to start earnings!');
+          <?php
+          }
+        }?>
+        <?php
+        if($autopull_users!=''){
+          if($autopull_users['payment_conferm']<3){
+            ?>
+            // Set the date we're counting down to
+            var countDownDate3 = new Date("<?=$autopull_days3_date?>").getTime();
+
+            // Update the count down every 1 second
+            var x3 = setInterval(function() {
+
+              // Get today's date and time
+              var now3 = new Date().getTime();
+
+              var id='<?php $this->session->userdata('login_user_id'); ?>';
+
+              // Find the distance between now and the count down date
+              var distance3 = countDownDate3 - now3;
+
+              // Time calculations for days, hours, minutes and seconds
+              var days3 = Math.floor(distance3 / (1000 * 60 * 60 * 24));
+              var hours3 = Math.floor((distance3 % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+              var minutes3 = Math.floor((distance3 % (1000 * 60 * 60)) / (1000 * 60));
+              var seconds3 = Math.floor((distance3 % (1000 * 60)) / 1000);
+
+              $('#days').html(days3);
+              $('#hours').html(hours3);
+              $('#minutes').html(minutes3);
+              $('#seconds').html(seconds3);
+            }, 1000);
+            alert("You are Blocked because you not done autopool payment on time!\nBecome active to start earnings!");
+        <?php
+        }
+      }?>
+      </script>
+  <?php
+  }
 }?>
