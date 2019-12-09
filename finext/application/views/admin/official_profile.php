@@ -89,7 +89,14 @@
                                             Valid first name is required.
                                         </div>
                                     </div>
-                                       <div class="col-md-12 mb-3">
+                                    <div class="col-md-12 mb-3">
+                                        <label for="firstName">Display ID :</label>
+                                        <input type="text" class="form-control" id="firstName" name="display_id" placeholder="Display ID"  value="<?php echo $official_profile->display_id;?>" required="" maxlength="10" minlength="10">
+                                        <div class="invalid-feedback">
+                                            Valid display_id is required.
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 mb-3">
                                         <label for="firstName">Pan No :</label>
                                         <input type="text" class="form-control" name="pan_no" id="firstName" placeholder="" value="<?php if($official_profile->pan_no==''){}else{ echo $official_profile->pan_no; }?>" required="">
                                         <div class="invalid-feedback">

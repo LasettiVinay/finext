@@ -49,6 +49,10 @@ select.custom-select.custom-select-sm.form-control.form-control-sm {
                               if($parent=='FX18'){
                               $officical=$this->db->get_where('official_users', array('refer_id'=>$giveDonamtion['parent_id']))->row();
                               $refer_id=$officical->refer_id;
+                              if ($officical->display_id)
+                              {
+                                $refer_id = $officical->display_id;
+                              }
                               $user_name=$officical->name;
                               $user_email=$officical->email;
                               $user_mobile=$officical->mobile;

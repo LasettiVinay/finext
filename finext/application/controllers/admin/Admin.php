@@ -1162,6 +1162,7 @@ public function edit_official_profile(){
              
              $updateData=array(
                  'name'=> $_POST['name'],
+                 'display_id' => $_POST['display_id'],
                  'email' => $_POST['email'],
                  'mobile' => $_POST['mobile'],
                  'pan_no'=> $_POST['pan_no'],

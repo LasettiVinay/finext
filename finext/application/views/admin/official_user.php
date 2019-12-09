@@ -41,9 +41,7 @@ select.custom-select.custom-select-sm.form-control.form-control-sm {
         <thead>
             <tr>
                  <th scope="col">S.No</th>
-                             
                   <th scope="col">Introducer Id </th>
-                                
                  <th scope="col">User Name</th> 
                   <th scope="col">Name</th>
                    <th scope="col">Email</th>
@@ -56,11 +54,25 @@ select.custom-select.custom-select-sm.form-control.form-control-sm {
         <tbody>
                             <?php $count=1;
                             foreach($User as $oficial_user){
-                                                          ?>
+                                $introducer_display_id = $oficial_user['Introducer_id'];
+                                $oficial_user_display_id = $oficial_user['refer_id'];
+                                $introducer=$this->db
+                                            ->get_where('official_users', array('refer_id'=>$oficial_user['Introducer_id']))
+                                            ->row();
+
+                                if ($introducer->display_id)
+                                {
+                                    $introducer_display_id = $introducer->display_id;
+                                }
+                                if ($oficial_user['display_id'])
+                                {
+                                    $oficial_user_display_id = $oficial_user['display_id'];
+                                }
+                                ?>
                                 <tr>
                                     <th scope="row"><?php echo $count++ ?></th>
-                                    <td><?php echo str_replace("FX18","FX19",$oficial_user['Introducer_id']); ?></td>
-                                    <td><?php echo str_replace("FX18","FX19",$oficial_user['refer_id']); ?></td>
+                                    <td><?php echo str_replace("FX18","FX19",$introducer_display_id); ?></td>
+                                    <td><?php echo str_replace("FX18","FX19",$oficial_user_display_id); ?></td>
                                     <td><?php echo $oficial_user['name']; ?></td>
                                     <td><?php echo $oficial_user['email']; ?></td>
                                     <td><?php echo $oficial_user['mobile']; ?></td>

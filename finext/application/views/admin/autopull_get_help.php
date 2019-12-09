@@ -64,21 +64,37 @@ select.custom-select.custom-select-sm.form-control.form-control-sm {
                            <?php 
                            $introducer_user=$this->db->get_where('users', array('refer_id'=>$user_deatil['child_id']))->row();
                            $benificial_user=$this->db->get_where('users', array('refer_id'=>$user_deatil['parent_id']))->row();
+                           $display_id = str_replace("FX18","FX19",$user_deatil['parent_id']);
+                           $child_display_id = str_replace("FX18","FX19",$user_deatil['child_id']);
                            if(substr($user_deatil['parent_id'], 0,4) == "FX18"){
                                 $benificial_user=$this->db
                                     ->get_where('official_users', array('refer_id'=>$user_deatil['parent_id']))
                                     ->row();
+                                if ($benificial_user->display_id)
+                                {
+                                    $display_id = $benificial_user->display_id;
+                                }
+                           }
+                           if(substr($user_deatil['child_id'], 0,4) == "FX18")
+                           {
+                                $child_user=$this->db
+                                                ->get_where('official_users', array('refer_id'=>$user_deatil['child_id']))
+                                                ->row();
+                                if ($child_user->display_id)
+                                {
+                                    $child_display_id=$child_user->display_id;
+                                }
                            }
                             ?>
                                <tr>
                                    <th scope="row"><?php echo $count++;?></th>
                                    <?php if($this->session->userdata('login_type')=='admin'){?>
 
-                               <td><?php echo  str_replace("FX18","FX19",$user_deatil['parent_id']);;?></td>
+                               <td><?php echo $display_id;?></td>
                                <td><?php echo $benificial_user->name;?></td>
                                <td><?php echo $benificial_user->mobile;?></td>
                                <?php }?>
-                                   <td><?php echo str_replace("FX18","FX19",$user_deatil['child_id']);?></td>
+                                   <td><?php echo $child_display_id;?></td>
                                    <td><?php echo $introducer_user->name;?></td>
                                    <td><?php echo $introducer_user->city;?></td>
                                    <td><?php echo $introducer_user->mobile;?></td>

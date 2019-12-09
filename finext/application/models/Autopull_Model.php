@@ -23,6 +23,7 @@
         
     }
      public function official_user(){
+         log_message('debug', '--- No. of official users: '.$this->db->get('official_users')->num_rows());
       return $this->db->get('official_users')->result_array();
     }
     public function official_user_by_id($id){

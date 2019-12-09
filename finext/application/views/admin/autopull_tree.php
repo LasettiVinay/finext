@@ -129,100 +129,287 @@ right connector from last child*/
         <!-- Sidebar Holder -->
        
 <?php
- if(isset($_GET['user_id'])!=''){
-$refer_id=$_GET['user_id'];
-if($this->session->userdata('login_type')=='member'){
-$u_created_at=$this->db->where('parent_id',$this->session->userdata('refer_id'))->get('autopool_details')->row()->created_at;
-$this->db->where('created_at >=',$u_created_at);
-}
-$user_refer=$this->db->where('user_id',$refer_id)->get('autopool_details')->row()->user_id;
-}else{
-	if($this->session->userdata('login_type')=='admin'){
-	$user_refer='FX18408433';
+	if(isset($_GET['user_id'])!='')
+	{
+		$refer_id=$_GET['user_id'];
+		if($this->session->userdata('login_type')=='member')
+		{
+			$u_created_at=$this->db->where('parent_id',$this->session->userdata('refer_id'))->get('autopool_details')->row()->created_at;
+			$this->db->where('created_at >=',$u_created_at);
+		}
+		$user_refer=$this->db->where('user_id',$refer_id)->get('autopool_details')->row()->user_id;
 	}
-	else if($this->session->userdata('login_type')=='member'){
-$user_refer=$this->session->userdata('refer_id');
-//$user_refer=$this->db->where('user_id',$this->session->userdata('refer_id'))->get('autopool_details')->row()->parent_id;
+	else
+	{
+		if($this->session->userdata('login_type')=='admin')
+		{
+			$user_refer='FX18408433';
+		}
+		else if($this->session->userdata('login_type')=='member')
+		{
+			$user_refer=$this->session->userdata('refer_id');
+			//$user_refer=$this->db->where('user_id',$this->session->userdata('refer_id'))->get('autopool_details')->row()->parent_id;
+		}
 	}
-}
-if(!empty($user_refer)){
-$result=$this->Tree_View_Model->get_autopull_child_node($user_refer);
-// echo "<pre>";
-// print_r($this->db->last_query());
-$parent=$result['parent'];
-$user=substr($parent['user_id'], 0,4);
- if($user=='FX18'){
- 	$officical=$this->db->get_where('official_users', array('refer_id'=>$parent['user_id']))->row();
- 	 $parent_name=$officical->name;
- }else{ 
- 		 $user=$this->db->get_where('users', array('refer_id'=>$parent['user_id']))->row();
- $parent_name=$user->name;
- 	}
-$chaild1='';$chaild2='';$chaild3='';$child4='';
-for($j=0; $j<count($result); $j++){
-	if(!empty($result[$j])){
-		$users=substr($result[$j]['user_id'], 0,4);
- if($users=='FX18'){
- 	$officical=$this->db->get_where('official_users', array('refer_id'=>$result[$j]['user_id']))->row();
- 	 $user_name[$j]=$officical->name;
- }else{ 
- 		 $user=$this->db->get_where('users', array('refer_id'=>$result[$j]['user_id']))->row();
- $user_name[$j]=$user->name;
- 	}
+	if(!empty($user_refer))
+	{
+		$result=$this->Tree_View_Model->get_autopull_child_node($user_refer);
+		// echo "<pre>";
+		// print_r($this->db->last_query());
+		$parent=$result['parent'];
+		$user=substr($parent['user_id'], 0,4);
+		if($user=='FX18')
+		{
+			$officical=$this->db->get_where('official_users', array('refer_id'=>$parent['user_id']))->row();
+			$parent_name=$officical->name;
+		}
+		else
+		{
+			$user=$this->db->get_where('users', array('refer_id'=>$parent['user_id']))->row();
+			$parent_name=$user->name;
+		}
+		$chaild1='';
+		$chaild2='';
+		$chaild3='';
+		$child4='';
+		for($j=0; $j<count($result); $j++){
+			if(!empty($result[$j]))
+			{
+				$users=substr($result[$j]['user_id'], 0,4);
+				if($users=='FX18'){
+					$officical=$this->db->get_where('official_users', array('refer_id'=>$result[$j]['user_id']))->row();
+					$user_name[$j]=$officical->name;
+				}else
+				{
+					$user=$this->db->get_where('users', array('refer_id'=>$result[$j]['user_id']))->row();
+					$user_name[$j]=$user->name;
+				}
 
- 	if($result[$j]['position']=='1'){
-$chaild1=$result[$j];
-}
-	if($result[$j]['position']=='2'){
-$chaild2=$result[$j];
-}
-	if($result[$j]['position']=='3'){
-$chaild3=$result[$j];
-}
-	if($result[$j]['position']=='4'){
-$chaild4=$result[$j];
-}
+				if($result[$j]['position']=='1'){
+					$chaild1=$result[$j];
+				}
+				if($result[$j]['position']=='2'){
+					$chaild2=$result[$j];
+				}
+				if($result[$j]['position']=='3'){
+					$chaild3=$result[$j];
+				}
+				if($result[$j]['position']=='4'){
+					$chaild4=$result[$j];
+				}
 
-	}
-}
+			}
+		}
 
- ?>
-        <!-- Page Content Holder -->
+	?>
+			<!-- Page Content Holder -->
 
 
-     
-<div class="tree">
-	<?php $users=$this->db->get('official_users')->result_array();?>
+	<div class="tree">
+		<?php $users=$this->db->get('official_users')->result_array();?>
 
-<ul><li><a href="#"><?php if($parent['row_status']==1){echo '<img class"tree" src="'.base_url().'uploads/active.jpg ">';}elseif($parent['row_status']==2){echo '<img class"tree" src="'.base_url().'uploads/inactive.jpg ">';}elseif($parent['row_status']=='3'){echo '<img class"tree" src="'.base_url().'uploads/vacant.jpg ">';}?><br><?= str_replace("FX18","FX19",$parent['user_id']); ?><br><?php echo $parent_name;?></a>
-	<ul>
-	<li>
-		<?php if($chaild1!=''){?>
-			<a href="<?php echo base_url();?>autopool_tree?user_id=<?php echo $chaild1['user_id'];?>"><?php if($chaild1['row_status']==1){echo '<img class"tree" src="'.base_url().'uploads/active.jpg ">';}elseif($chaild1['row_status']==2){echo '<img class"tree" src="'.base_url().'uploads/inactive.jpg ">';}else{echo '<img src="'.base_url().'uploads/vacant.jpg ">';}?><br><?=str_replace("FX18","FX19",$chaild1['user_id']); ?><br><?php echo $user_name[0];?>
-</a>
-<?php } else{ ?> <a href="#"><img class="tree" src="<?php base_url(); ?>uploads/vacant.jpg"></a><?php } ?>
+		<ul>
+			<li>
+				<a href="#">
+					<?php
+						if($parent['row_status']==1)
+						{
+							echo '<img class"tree" src="'.base_url().'uploads/active.jpg ">';
+						}
+						elseif($parent['row_status']==2)
+						{
+							echo '<img class"tree" src="'.base_url().'uploads/inactive.jpg ">';
+						}
+						elseif($parent['row_status']=='3')
+						{
+							echo '<img class"tree" src="'.base_url().'uploads/vacant.jpg ">';
+						}
+					?>
+					<?php
+						$fx_id=substr($parent['user_id'], 0,4);
+						$display_id = $parent['user_id'];
+						if($fx_id == "FX18")
+						{
+							$officical_user_info=$this->db->get_where('official_users', array('refer_id'=>$parent['user_id']))->row();
+							if ($officical_user_info->display_id)
+							{
+								$display_id = $officical_user_info->display_id;
+							}
+						}
+					?>
+					<br><?= str_replace("FX18","FX19", $display_id); ?><br><?php echo $parent_name;?>
+				</a>
+		<ul>
+			<li>
+				<?php
+				if($chaild1!='')
+				{
+					?>
+					<a href="<?php echo base_url();?>autopool_tree?user_id=<?php echo $chaild1['user_id'];?>">
+						<?php
+						if($chaild1['row_status']==1)
+						{
+							echo '<img class"tree" src="'.base_url().'uploads/active.jpg ">';
+						}
+						elseif($chaild1['row_status']==2)
+						{
+							echo '<img class"tree" src="'.base_url().'uploads/inactive.jpg ">';
+						}
+						else
+						{
+							echo '<img src="'.base_url().'uploads/vacant.jpg ">';
+						}
+						?>
+					<?php
+						$fx_id=substr($chaild1['user_id'], 0,4);
+						$chaild1_id = $chaild1['user_id'];
+						if($fx_id == "FX18")
+						{
+							$chaild1_id_info=$this->db->get_where('official_users', array('refer_id'=>$chaild1_id))->row();
+							if ($chaild1_id_info->display_id)
+							{
+								$chaild1_id = $chaild1_id_info->display_id;
+							}
+						}
+					?>
+					<br><?=str_replace("FX18","FX19", $chaild1_id); ?><br><?php echo $user_name[0];?>
+					</a>
+					<?php
+				}
+				else
+				{
+					?> <a href="#"><img class="tree" src="<?php base_url(); ?>uploads/vacant.jpg"></a><?php } ?>
 
-	</li>
-	<li><?php if($chaild2!=''){?><a href="<?php echo base_url();?>autopool_tree?user_id=<?php echo $chaild2['user_id'];?>"><?php if($chaild2['row_status']==1){echo '<img class"tree" src="'.base_url().'uploads/active.jpg ">';}elseif($chaild2['row_status']==2){echo '<img class"tree" src="'.base_url().'uploads/inactive.jpg ">';}else{echo '<img class"tree"src="'.base_url().'uploads/vacant.jpg ">';}?><br><?=str_replace("FX18","FX19",$chaild2['user_id']); ?><br><?php echo $user_name[1];?>
-</a>
-<?php } else{?> <a href="#"><img src="<?php base_url(); ?>uploads/vacant.jpg"></a><?php } ?>
-	</li>
-	<li> <?php if($chaild3!=''){?><a href="<?php echo base_url();?>autopool_tree?user_id=<?php echo $chaild3['user_id'];?>"><?php if($chaild3['row_status']==1){echo '<img src="'.base_url().'uploads/active.jpg ">';}elseif($chaild3['row_status']==2){echo '<img src="'.base_url().'uploads/inactive.jpg ">';}else{echo '<img src="'.base_url().'uploads/vacant.jpg ">';}?><br><?=str_replace("FX18","FX19",$chaild3['user_id']); ?><br><?php echo $user_name[2];?>
-</a>
-<?php } else{?> <a href="#"><img class="tree" src="<?php base_url(); ?>uploads/vacant.jpg"></a><?php } ?>
-	</li>
-	<li><?php if($chaild4!=''){?><a href="<?php echo base_url();?>autopool_tree?user_id=<?php echo $chaild4['user_id'];?>"><?php if($chaild4['row_status']==1){echo '<img class"tree" src="'.base_url().'uploads/active.jpg ">';}elseif($chaild4['row_status']==2){echo '<img class"tree" src="'.base_url().'uploads/inactive.jpg ">';}else{echo '<img class"tree" src="'.base_url().'uploads/vacant.jpg ">';}?><br><?=str_replace("FX18","FX19",$chaild4['user_id']); ?><br><?php echo $user_name[3];?>
-</a>
-<?php } else{?> <a href="#"><img class="tree" src="<?php base_url(); ?>uploads/vacant.jpg"></a><?php } ?>
-	</li>
-</ul></li>
+			</li>
+			<li>
+				<?php
+					if($chaild2!='')
+					{
+						?>
+						<a href="<?php echo base_url();?>autopool_tree?user_id=<?php echo $chaild2['user_id'];?>">
+							<?php
+							if($chaild2['row_status']==1)
+							{
+								echo '<img class"tree" src="'.base_url().'uploads/active.jpg ">';
+							}
+							elseif($chaild2['row_status']==2)
+							{
+								echo '<img class"tree" src="'.base_url().'uploads/inactive.jpg ">';
+							}
+							else
+							{
+								echo '<img class"tree"src="'.base_url().'uploads/vacant.jpg ">';
+							}?>
+							<?php
+								$fx_id=substr($chaild2['user_id'], 0,4);
+								$chaild2_id = $chaild2['user_id'];
+								if($fx_id == "FX18")
+								{
+									$chaild2_id_info=$this->db->get_where('official_users', array('refer_id'=>$chaild2_id))->row();
+									if ($chaild2_id_info->display_id)
+									{
+										$chaild2_id = $chaild2_id_info->display_id;
+									}
+								}
+							?>
+							<br><?=str_replace("FX18","FX19",$chaild2_id); ?><br><?php echo $user_name[1];?>
+						</a>
+						<?php
+					}
+					else
+					{
+						?> <a href="#"><img src="<?php base_url(); ?>uploads/vacant.jpg"></a><?php
+					} ?>
+			</li>
+			<li>
+				<?php
+					if($chaild3!='')
+					{
+						?>
+						<a href="<?php echo base_url();?>autopool_tree?user_id=<?php echo $chaild3['user_id'];?>"><?php
+							if($chaild3['row_status']==1)
+							{
+								echo '<img src="'.base_url().'uploads/active.jpg ">';
+							}
+							elseif($chaild3['row_status']==2)
+							{
+								echo '<img src="'.base_url().'uploads/inactive.jpg ">';
+							}
+							else
+							{
+								echo '<img src="'.base_url().'uploads/vacant.jpg ">';
+							}
+							?>
+							<?php
+								$fx_id=substr($chaild3['user_id'], 0,4);
+								$chaild3_id = $chaild3['user_id'];
+								if($fx_id == "FX18")
+								{
+									$chaild3_id_info=$this->db->get_where('official_users', array('refer_id'=>$chaild3_id))->row();
+									if ($chaild3_id_info->display_id)
+									{
+										$chaild3_id = $chaild3_id_info->display_id;
+									}
+								}
+							?>
+							<br><?=str_replace("FX18","FX19",$chaild3_id); ?><br><?php echo $user_name[2];?>
+						</a>
+						<?php
+					}
+					else
+					{
+						?>
+						<a href="#"><img class="tree" src="<?php base_url(); ?>uploads/vacant.jpg"></a><?php
+					} ?>
+		</li>
+		<li>
+		<?php
+			if($chaild4!='')
+			{
+				?>
+				<a href="<?php echo base_url();?>autopool_tree?user_id=<?php echo $chaild4['user_id'];?>"><?php
+				if($chaild4['row_status']==1)
+				{
+					echo '<img class"tree" src="'.base_url().'uploads/active.jpg ">';
+				}
+				elseif($chaild4['row_status']==2)
+				{
+					echo '<img class"tree" src="'.base_url().'uploads/inactive.jpg ">';
+				}
+				else
+				{
+					echo '<img class"tree" src="'.base_url().'uploads/vacant.jpg ">';
+				}
+				?>
+				<?php
+					$fx_id=substr($chaild4['user_id'], 0,4);
+					$chaild4_id = $chaild4['user_id'];
+					if($fx_id == "FX18")
+					{
+						$chaild4_id_info=$this->db->get_where('official_users', array('refer_id'=>$chaild4_id))->row();
+						if ($chaild4_id_info->display_id)
+						{
+							$chaild4_id = $chaild4_id_info->display_id;
+						}
+					}
+				?>
+				<br><? echo str_replace("FX18","FX19",$chaild4_id); ?><br><?php echo $user_name[3];?>
+		</a>
+		<?php } else{?> <a href="#"><img class="tree" src="<?php base_url(); ?>uploads/vacant.jpg"></a><?php } ?>
+		</li>
+	</ul>
+</li>
 </ul>
 
 
-</div>
-<?php }else{
-	echo "This ID is not Available";
-}?>
+		</div>
+		<?php
+	}
+	else
+	{
+		echo "This ID is not Available";
+	}
+?>
 </div>
 
 
