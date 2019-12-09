@@ -69,6 +69,12 @@ button.bank {
                                         <input type="text" class="form-control phone"  name="paytm" id="phone" placeholder="Paytm"  value="<?php if(!empty($bank_list)){ echo $bank_list->paytm;} ?>" maxlength="10" minlength="10" >
                                     </div>
                                 </div>
+                                 <div class="form-group row">
+                                    <label for="inputPassword3" class="col-sm-3 col-form-label">BTC:</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control"  name="btc" id="btc" placeholder="BTC"  value="<?php if(!empty($bank_list)){ echo $bank_list->btc;} ?>">
+                                    </div>
+                                </div>
                                  
                                
                                 <div class="form-group row">

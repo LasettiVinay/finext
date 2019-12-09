@@ -28,6 +28,7 @@
                            <th scope="col">Google Pay</th>
                             <th scope="col">Paytm</th>
                             <th scope="col">Phone Pay</th>
+                            <th scope="col">BTC</th>
                            <th>Upload File</th>
                                  <th>Fund Received</th>  
                                 </tr>
@@ -51,6 +52,7 @@
                                     <td><?php echo $bdeatil['tez'];?></td>
                                     <td><?php echo $bdeatil['paytm'];?></td>
                                     <td><?php echo $bdeatil['pay_phone_no'];?></td>
+                                    <td><?php echo $bdeatil['btc'];?></td>
                                     
                                     <td><?php if (!file_exists('uploads/give_help/'. $giveDonamtion['id'].'.jpg')){?><form method="post" action="<?=base_url('give_helps');?>"  enctype="multipart/form-data">
                                       <input type="hidden" name="name" value="<?=$giveDonamtion['name'];?>">

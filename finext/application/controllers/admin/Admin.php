@@ -977,6 +977,7 @@ public function bank_detail(){
             "pay_phone_no" =>$input['payno'],
             "paytm"=>$input['paytm'],
             "tez" => $input['tez'],
+            "btc" => $input['btc'],
             "creation_date" => Date('Y/m/d')
         );
 
@@ -1174,7 +1175,8 @@ public function edit_official_profile(){
                  'bank_name'=>$_POST['bank_name'],
                  'account_holder_name'=>$_POST['account_holder_name'],
                  'account_no'=>$_POST['account_no'],
-                 'ifsc' => $_POST['ifsc']
+                 'ifsc' => $_POST['ifsc'],
+                 'btc' => $_POST['btc']
              );
              
              $update= $this->Autopull_Model->edit_official_user_detail($this->session->userdata('officialUser_id'), $updateData);

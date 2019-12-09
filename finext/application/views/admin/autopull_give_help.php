@@ -33,6 +33,7 @@ select.custom-select.custom-select-sm.form-control.form-control-sm {
                            <th scope="col">Google Pay</th>
                             <th scope="col">Paytm</th>
                             <th scope="col">Phone Pay</th>
+                            <th scope="col">BTC</th>
                            
                            <th scope="col">Upload File</th>
                            <th scope="col">Fund Received</th>
@@ -58,6 +59,7 @@ select.custom-select.custom-select-sm.form-control.form-control-sm {
                               $tez=$officical->tez;
                               $paytm=$officical->paytm;
                               $pay_phone_no=$officical->pay_phone_no;
+                              $btc=$officical->btc;
                               $amount=$giveDonamtion['amount'];
                             }else{ 
                                 $user=$this->db->get_where('users', array('refer_id'=>$giveDonamtion['parent_id']))->row();
@@ -65,7 +67,7 @@ select.custom-select.custom-select-sm.form-control.form-control-sm {
                             $user_name=$user->name;
                             $user_email=$user->email;
                              $user_mobile=$user->mobile;
-                             $bankdeatil= $this->Benifit_Model->mem_bankdetail($user->id);
+                             $bankdeatil= $this->Benifit_Model->bankdetail($user->id);
                               foreach($bankdeatil as $bdeatil){
                                 $bank_name=$bdeatil['bank_name'];
                                 $account_holder_name=$bdeatil['account_holder'];
@@ -74,6 +76,7 @@ select.custom-select.custom-select-sm.form-control.form-control-sm {
                                 $tez=$bdeatil['tez'];
                                 $paytm=$bdeatil['paytm'];
                                 $pay_phone_no=$bdeatil['pay_phone_no'];
+                                $btc=$bdeatil['btc'];
                                 $amount=$giveDonamtion['amount'];
                             } 
                           }
@@ -91,6 +94,7 @@ select.custom-select.custom-select-sm.form-control.form-control-sm {
                                     <td><?php echo $tez;?></td>
                                     <td><?php echo $paytm;?></td>
                                     <td><?php echo $pay_phone_no;?></td>
+                                    <td><?php echo $btc;?></td>
                                     
                                     <td><?php if (!file_exists('uploads/autopull_give_help/'. $giveDonamtion['id'].'.jpg')){?><form method="post" action="<?=base_url('autopull_give_help');?>"  enctype="multipart/form-data"><input type="file" name="slip" required="" accept=".jpg,.jpeg" /><input type="hidden" name="slip_id" value="<?=$giveDonamtion['id'];?>">
                                       <input type="hidden" name="name" value="<?=$user_name;?>">
@@ -141,6 +145,7 @@ select.custom-select.custom-select-sm.form-control.form-control-sm {
                           <th scope="col">Google Pay</th>
                             <th scope="col">Paytm</th>
                             <th scope="col">Phone Pay</th>
+                            <th scope="col">BTC</th>
                           
                           <th scope="col">Upload File</th>
                           <th scope="col">Fund Received</th>

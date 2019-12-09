@@ -188,6 +188,13 @@
                                             Valid first name is required.
                                         </div>
                                     </div>
+                                    <div class="col-md-12 mb-3">
+                                        <label for="firstName">BTC:</label>
+                                        <input type="text" class="form-control" id="firstName"  value="<?php if($official_profile->state==''){}else{ echo $official_profile->btc; }?>" name="btc" required="">
+                                        <div class="invalid-feedback">
+                                            Valid BTC is required.
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <hr class="mb-4">
