@@ -76,9 +76,9 @@ $query_builder = TRUE;
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
-	'username' => 'u241772466_finex',
-	'password' => 'finex@123',
-	'database' => 'u241772466_finex',
+	'username' => 'root',
+	'password' => '',
+	'database' => 'finext',
 
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
