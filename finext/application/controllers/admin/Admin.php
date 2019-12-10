@@ -851,6 +851,7 @@ public function sentbox_mail(){
                 'city' => $_POST['city'],
                 'state'=>$_POST['state'],
                 'country'=>$_POST['country'],
+                'row_status'=>$_POST['status'],
                         );
             $update= $this->User_details_model->edit_profile($user_id, $updateData);
             if($update){

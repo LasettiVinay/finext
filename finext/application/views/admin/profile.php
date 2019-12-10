@@ -165,6 +165,20 @@ $this->session->set_userdata('last_page',current_url());
                                             Valid first Country is required.
                                         </div>
                                     </div>
+                                    <?php if($this->session->userdata('login_type')=='admin'){ ?>
+                                    <div class="col-md-12 mb-3">
+                                        <label for="firstName">Status :</label>
+                                        <select class="form-control" id="status" name="status" required="">
+                                            <option value="1" <?php if($user_info->row_status==1){echo "selected";} ?>>Active</option>
+                                            <option value="2" <?php if($user_info->row_status==2){echo "selected";} ?>>In-Active</option>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Valid first Country is required.
+                                        </div>
+                                    </div>
+                                    <?php }else{ ?>
+                                    <input type="hidden" value="<?=$user_info->row_status;?>" name="status"/>
+                                    <?php }?>
                                 </div>
 
                                 <hr class="mb-4">
