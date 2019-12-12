@@ -263,6 +263,7 @@ right connector from last child*/
 					<?php
 						$fx_id=substr($chaild1['user_id'], 0,4);
 						$chaild1_id = $chaild1['user_id'];
+						log_message('debug', '--- AP Tree: 1st child1 ID: '.$chaild1_id);
 						if($fx_id == "FX18")
 						{
 							$chaild1_id_info=$this->db->get_where('official_users', array('refer_id'=>$chaild1_id))->row();
@@ -271,6 +272,7 @@ right connector from last child*/
 								$chaild1_id = $chaild1_id_info->display_id;
 							}
 						}
+						log_message('debug', '--- AP Tree: 2nd child1 ID: '.$chaild1_id);
 					?>
 					<br><?=str_replace("FX18","FX19", $chaild1_id); ?><br><?php echo $user_name[0];?>
 					</a>
@@ -303,6 +305,7 @@ right connector from last child*/
 							<?php
 								$fx_id=substr($chaild2['user_id'], 0,4);
 								$chaild2_id = $chaild2['user_id'];
+								log_message('debug', '--- AP Tree: 1st child2 ID: '.$chaild2_id);
 								if($fx_id == "FX18")
 								{
 									$chaild2_id_info=$this->db->get_where('official_users', array('refer_id'=>$chaild2_id))->row();
@@ -311,6 +314,7 @@ right connector from last child*/
 										$chaild2_id = $chaild2_id_info->display_id;
 									}
 								}
+								log_message('debug', '--- AP Tree: 2nd child2 ID: '.$chaild2_id);
 							?>
 							<br><?=str_replace("FX18","FX19",$chaild2_id); ?><br><?php echo $user_name[1];?>
 						</a>
@@ -343,6 +347,7 @@ right connector from last child*/
 							<?php
 								$fx_id=substr($chaild3['user_id'], 0,4);
 								$chaild3_id = $chaild3['user_id'];
+								log_message('debug', '--- AP Tree: 1st child3 ID: '.$chaild3_id);
 								if($fx_id == "FX18")
 								{
 									$chaild3_id_info=$this->db->get_where('official_users', array('refer_id'=>$chaild3_id))->row();
@@ -351,6 +356,7 @@ right connector from last child*/
 										$chaild3_id = $chaild3_id_info->display_id;
 									}
 								}
+								log_message('debug', '--- AP Tree: 2nd child3 ID: '.$chaild3_id);
 							?>
 							<br><?=str_replace("FX18","FX19",$chaild3_id); ?><br><?php echo $user_name[2];?>
 						</a>
@@ -384,6 +390,7 @@ right connector from last child*/
 				<?php
 					$fx_id=substr($chaild4['user_id'], 0,4);
 					$chaild4_id = $chaild4['user_id'];
+					log_message('debug', '--- AP Tree: 1st child4 ID: '.$chaild4_id);
 					if($fx_id == "FX18")
 					{
 						$chaild4_id_info=$this->db->get_where('official_users', array('refer_id'=>$chaild4_id))->row();
@@ -392,6 +399,7 @@ right connector from last child*/
 							$chaild4_id = $chaild4_id_info->display_id;
 						}
 					}
+					log_message('debug', '--- AP Tree: 2nd child4 ID: '.$chaild4_id);
 				?>
 				<br><? echo str_replace("FX18","FX19",$chaild4_id); ?><br><?php echo $user_name[3];?>
 		</a>
