@@ -401,7 +401,7 @@ right connector from last child*/
 					}
 					log_message('debug', '--- AP Tree: 2nd child4 ID: '.$chaild4_id);
 				?>
-				<br><? echo str_replace("FX18","FX19",$chaild4_id); ?><br><?php echo $user_name[3];?>
+				<br><?=str_replace("FX18","FX19",$chaild4_id); ?><br><?php echo $user_name[3];?>
 		</a>
 		<?php } else{?> <a href="#"><img class="tree" src="<?php base_url(); ?>uploads/vacant.jpg"></a><?php } ?>
 		</li>
